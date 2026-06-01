@@ -1,0 +1,54 @@
+# Ambiente de DESENVOLVIMENTO do InvenTree, rodando a partir do código-fonte (imagem inventree-local:497).
+# Backend (Django dev server) em :8000. O frontend roda separado via Vite (npm run dev) em :5173 com hot-reload.
+# Sobe apenas db + cache + backend — sem Caddy/worker (não necessários para iterar no frontend).
+
+services:
+    inventree-db:
+        image: postgres:17
+        container_name: inventree-db
+        environment:
+            - PGDATA=/var/lib/postgresql/data/pgdb
+            - POSTGRES_USER=pguser
+            - POSTGRES_PASSWORD=pgpassword
+            - POSTGRES_DB=inventree
+        volumes:
+            - ./dev-data/db:/var/lib/postgresql/data
+        restart: unless-stopped
+
+    inventree-cache:
+        image: redis:7-alpine
+        container_name: inventree-cache
+        restart: always
+
+    inventree-server:
+        image: inventree-local:497
+        container_name: inventree-server
+        command: invoke dev.server -a 0.0.0.0:8000
+        ports:
+            - "8000:8000"
+        environment:
+            - INVENTREE_DEBUG=True
+            - INVENTREE_AUTO_UPDATE=True
+            - INVENTREE_LOG_LEVEL=INFO
+            - INVENTREE_DB_ENGINE=postgresql
+            - INVENTREE_DB_NAME=inventree
+            - INVENTREE_DB_HOST=inventree-db
+            - INVENTREE_DB_PORT=5432
+            - INVENTREE_DB_USER=pguser
+            - INVENTREE_DB_PASSWORD=pgpassword
+            - INVENTREE_CACHE_ENABLED=True
+            - INVENTREE_CACHE_HOST=inventree-cache
+            - INVENTREE_CACHE_PORT=6379
+            - INVENTREE_SITE_URL=http://localhost:8000
+            - INVENTREE_CORS_ORIGIN_ALLOW_ALL=True
+            - INVENTREE_PLUGINS_ENABLED=True
+        volumes:
+            - ./dev-data/srv:/home/inventree/data
+            # Monta o código-fonte do backend do host para dentro do container,
+            # habilitando auto-reload do Django dev server e gravando migrations
+            # geradas (makemigrations) diretamente no host.
+            - ../../src/backend/InvenTree:/home/inventree/src/backend/InvenTree
+        depends_on:
+            - inventree-db
+            - inventree-cache
+        restart: unless-stopped

@@ -1,0 +1,2 @@
+import{j as r,i as o}from"./index-B7aS2nJw.js";import{E as t}from"./GenericErrorPage-DsYjXwAH.js";import"./index-rPqTZ_Te.js";import"./Tabs-BmTtqc97.js";import"./Notification-DRRQK9mu.js";import"./index-DL_Bl857.js";import"./Card-BLW4BWKU.js";import"./Container-P5yM_rPN.js";import"./ThemeContext-PXSd6mvo.js";import"./index-BpoUB6fg.js";import"./index-Do62OM_P.js";import"./IconArrowBack-C9cEqz4t.js";function l(){return r.jsx(t,{title:o._({id:"boJlGf"}),message:o._({id:"CcD0eu"})})}export{l as default};
+//# sourceMappingURL=NotFound-B2xY3jr2.js.map

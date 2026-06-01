@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Backend (Docker Compose dev)",
+      "cwd": "contrib/container",
+      "runtimeExecutable": "docker",
+      "runtimeArgs": ["compose", "-f", "docker-compose.dev.yml", "-p", "inventree-dev", "up", "-d"],
+      "port": 8000
+    },
+    {
+      "name": "Frontend (Vite hot-reload)",
+      "cwd": "src/frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 5173
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+import{d as r}from"./index-B7aS2nJw.js";function l(){const[a,s]=r.useState(!1),e=r.useRef(null),n=r.useCallback(()=>{s(!0)},[]),u=r.useCallback(()=>{s(!1)},[]);return{ref:r.useCallback(t=>(e.current&&(e.current.removeEventListener("mouseenter",n),e.current.removeEventListener("mouseleave",u)),t&&(t.addEventListener("mouseenter",n),t.addEventListener("mouseleave",u)),e.current=t,()=>{e.current=null,s(!1)}),[n,u]),hovered:a}}export{l as u};
+//# sourceMappingURL=use-hover-C8GrNZNy.js.map

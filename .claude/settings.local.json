@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Notebook\\\\Documents\\\\inventree\\\\InvenTree-master\\\\InvenTree-master\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(npm --version)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(docker exec *)",
+      "mcp__Claude_in_Chrome__list_connected_browsers",
+      "Bash(node -e ' *)",
+      "Bash(node -e \"try{console.log\\('playwright:', require\\('playwright/package.json'\\).version\\)}catch\\(e\\){console.log\\('playwright NOT installed'\\)}; try{console.log\\('@playwright/test:', require\\('@playwright/test/package.json'\\).version\\)}catch\\(e\\){console.log\\('@playwright/test NOT installed'\\)}\")",
+      "Bash(node _diag.cjs)",
+      "Bash(npx playwright *)",
+      "Bash(docker cp *)",
+      "Bash(docker restart *)",
+      "Bash(curl -s http://inventree.localhost/api/version/)",
+      "Bash(curl -s http://inventree.localhost/api/)",
+      "Bash(echo \"exit=$?\")",
+      "Bash(docker build *)",
+      "Bash(echo \"BUILD_EXIT=$?\")",
+      "Bash(grep -r \"INVENTREE_SETTINGS\\\\|window\\\\\\\\.INVENTREE\" ./src/backend ./src/frontend --include=\"*.py\" --include=\"*.tsx\" --include=\"*.ts\" -l)",
+      "Bash(docker compose *)",
+      "Bash(docker stop *)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:8000/api/)",
+      "Bash(node _diag2.cjs)",
+      "Bash(curl -s -o /dev/null -w \"frontend :5173 -> HTTP %{http_code}\\\\n\" http://localhost:5173/)",
+      "Bash(curl -s -o /dev/null -w \"backend  :8000 -> HTTP %{http_code}\\\\n\" http://localhost:8000/api/)",
+      "Bash(node _logo.cjs)",
+      "Bash(node -e \"const s=require\\('fs'\\).readFileSync\\('src/locales/pt_BR/messages.ts','utf8'\\); console.log\\('Produto count:', \\(s.match\\(/Produto/g\\)||[]\\).length\\); console.log\\('Peca count:', \\(s.match\\(/Pe[çc]a/g\\)||[]\\).length\\);\")",
+      "Bash(curl -s -o /dev/null -w \"backend /api/ -> HTTP %{http_code}\\\\n\" http://localhost:8000/api/)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx tsc *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Notebook\\\\Documents\\\\inventree\\\\InvenTree-master\\\\InvenTree-master\\\\src\\\\frontend\\\\src\" -Directory)",
+      "Bash(Select-Object -First 20)",
+      "Bash(xargs grep -l \"category.*level\\\\|level.*category\")",
+      "Bash(serializers\")",
+      "Bash(xargs grep -l \"class InvenTreeTree\")",
+      "Bash(npm list *)"
+    ]
+  }
+}

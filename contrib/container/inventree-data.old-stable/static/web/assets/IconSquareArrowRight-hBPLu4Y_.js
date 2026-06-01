@@ -1,0 +1,7 @@
+import{t as a}from"./index-B7aS2nJw.js";/**
+ * @license @tabler/icons-react v3.40.0 - MIT
+ *
+ * This source code is licensed under the MIT license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const t=[["path",{d:"M12 16l4 -4l-4 -4",key:"svg-0"}],["path",{d:"M8 12h8",key:"svg-1"}],["path",{d:"M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14",key:"svg-2"}]],r=a("outline","square-arrow-right","SquareArrowRight",t);export{r as I};
+//# sourceMappingURL=IconSquareArrowRight-hBPLu4Y_.js.map

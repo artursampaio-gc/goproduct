@@ -1,0 +1,2 @@
+import{d as o,V as r,j as i}from"./index-B7aS2nJw.js";import{Wrapper as p}from"./Layout-DAMdm4Zu.js";import{u as e}from"./index-Do62OM_P.js";import"./ThemeContext-PXSd6mvo.js";import"./index-rPqTZ_Te.js";import"./Tabs-BmTtqc97.js";import"./Notification-DRRQK9mu.js";import"./index-DL_Bl857.js";import"./index-BpoUB6fg.js";import"./Container-P5yM_rPN.js";import"./BackgroundImage-BGP6qzlN.js";function l(){const t=e();return o.useEffect(()=>{r(t)},[]),i.jsx(p,{titleText:"Logging out",loader:!0})}export{l as default};
+//# sourceMappingURL=Logout-D2MylzjH.js.map

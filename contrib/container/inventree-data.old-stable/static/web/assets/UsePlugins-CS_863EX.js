@@ -1,0 +1,2 @@
+import{A as e,d as r}from"./index-B7aS2nJw.js";import{c as u}from"./PluginUIFeature-BpSQtVo4.js";const a=()=>{const n=u({endpoint:e.plugin_list,defaultValue:[],hasPrimaryKey:!1,refetchOnMount:!0,refetchOnWindowFocus:!1,params:{active:!0}}),i=r.useCallback(t=>n.instance.filter(s=>!!s.mixins[t]),[n.instance]);return{plugins:n.instance,withMixin:i}},o=n=>a().withMixin(n);export{o as u};
+//# sourceMappingURL=UsePlugins-CS_863EX.js.map
