@@ -51,6 +51,7 @@ from . import serializers as part_serializers
 from .models import (
     BomItem,
     BomItemSubstitute,
+    Cor,
     Part,
     PartCategory,
     PartCategoryParameterTemplate,
@@ -60,6 +61,30 @@ from .models import (
     PartStocktake,
     PartTestTemplate,
 )
+
+
+# ---------------------------------------------------------------------------
+# Cor (Color) API endpoints
+# ---------------------------------------------------------------------------
+
+class CorList(DataExportViewMixin, ListCreateAPI):
+    """List and create Cor (Color) instances."""
+
+    queryset = Cor.objects.all()
+    serializer_class = part_serializers.CorSerializer
+
+    filter_backends = SEARCH_ORDER_FILTER
+
+    search_fields = ['nome_pt', 'nome_en', 'pantone', 'hex_code']
+    ordering_fields = ['nome_pt', 'nome_en', 'pantone', 'hex_code', 'pk']
+    ordering = 'nome_pt'
+
+
+class CorDetail(RetrieveUpdateDestroyAPI):
+    """Retrieve, update or delete a single Cor instance."""
+
+    queryset = Cor.objects.all()
+    serializer_class = part_serializers.CorSerializer
 
 
 class CategoryMixin:
@@ -651,7 +676,7 @@ class PartFilter(FilterSet):
         """Metaclass options for this filter set."""
 
         model = Part
-        fields = ['revision_of']
+        fields = ['revision_of', 'cor']
 
     is_variant = rest_filters.BooleanFilter(
         label=_('Is Variant'), method='filter_is_variant'
@@ -1555,6 +1580,14 @@ class BomItemSubstituteDetail(RetrieveUpdateDestroyAPI):
 
 
 part_api_urls = [
+    # Cor (Color) API endpoints
+    path(
+        'cor/',
+        include([
+            path('<int:pk>/', CorDetail.as_view(), name='api-cor-detail'),
+            path('', CorList.as_view(), name='api-cor-list'),
+        ]),
+    ),
     # Base URL for PartCategory API endpoints
     path(
         'category/',

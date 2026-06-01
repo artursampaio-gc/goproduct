@@ -109,7 +109,12 @@ import {
   IconVersions,
   IconWorld,
   IconWorldCode,
-  IconX
+  IconX,
+  IconBarcode,
+  IconLanguage,
+  IconPalette,
+  IconShirt,
+  IconWeight
 } from '@tabler/icons-react';
 import type React from 'react';
 
@@ -207,6 +212,15 @@ const icons: InvenTreeIconType = {
   supplier_part: IconPackageImport,
   lock: IconLock,
   locked: IconLock,
+
+  // GoGroup custom part fields
+  name_en: IconLanguage,
+  material_corpo: IconShirt,
+  material_forro: IconStack2,
+  peso: IconWeight,
+  cor: IconPalette,
+  fob: IconCurrencyDollar,
+  codigo_barras: IconBarcode,
 
   calendar: IconCalendar,
   calendar_target: IconCalendarDot,

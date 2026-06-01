@@ -11,6 +11,7 @@ import {
   IconBuildingFactory2,
   IconDashboard,
   IconPackages,
+  IconPalette,
   IconShoppingCart,
   IconTruckDelivery
 } from '@tabler/icons-react';
@@ -60,6 +61,11 @@ export function getNavTabs(user: UserStateProps): NavTab[] {
       title: t`Sales`,
       icon: <IconTruckDelivery />,
       role: UserRoles.sales_order
+    },
+    {
+      name: 'cores',
+      title: t`Cores`,
+      icon: <IconPalette />
     }
   ];
 

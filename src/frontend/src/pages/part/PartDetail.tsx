@@ -319,12 +319,6 @@ export default function PartDetail() {
       },
       {
         type: 'string',
-        name: 'description',
-        label: t`Especificação`,
-        copy: true
-      },
-      {
-        type: 'string',
         name: 'material_corpo',
         label: t`Material Corpo`,
         copy: true,
@@ -338,10 +332,11 @@ export default function PartDetail() {
         hidden: !part.material_forro
       },
       {
-        type: 'string',
+        type: 'link',
         name: 'cor',
         label: t`Cor`,
-        copy: true,
+        model: ModelType.cor,
+        model_field: 'nome_pt',
         hidden: !part.cor
       },
       {
@@ -432,92 +427,19 @@ export default function PartDetail() {
       }
     ];
 
-    // Top right - stock availability information
-    const tr: DetailsField[] = [
+    // Especificação - shown in its own block; preserve line breaks for long text
+    const espec: DetailsField[] = [
       {
-        type: 'number',
-        name: 'total_in_stock',
-        unit: part.units,
-        label: t`In Stock`,
-        hidden: part.virtual
-      },
-      {
-        type: 'progressbar',
-        name: 'unallocated_stock',
-        total: data.total_in_stock,
-        progress: data.unallocated,
-        label: t`Available Stock`,
-        hidden: part.virtual || data.total_in_stock == data.unallocated
-      },
-      {
-        type: 'number',
-        name: 'ordering',
-        label: t`On order`,
-        unit: part.units,
-        hidden: !part.purchaseable || part.ordering <= 0
-      },
-      {
-        type: 'number',
-        name: 'required',
-        label: t`Required for Orders`,
-        unit: part.units,
-        hidden: data.required <= 0,
-        icon: 'stocktake'
-      },
-      {
-        type: 'progressbar',
-        name: 'allocated_to_build_orders',
-        icon: 'manufacturers',
-        total: partRequirements.required_for_build_orders,
-        progress: partRequirements.allocated_to_build_orders,
-        label: t`Allocated to Build Orders`,
-        hidden:
-          fetching ||
-          (partRequirements.required_for_build_orders <= 0 &&
-            partRequirements.allocated_to_build_orders <= 0)
-      },
-      {
-        type: 'progressbar',
-        icon: 'sales_orders',
-        name: 'allocated_to_sales_orders',
-        total: partRequirements.required_for_sales_orders,
-        progress: partRequirements.allocated_to_sales_orders,
-        label: t`Allocated to Sales Orders`,
-        hidden:
-          fetching ||
-          (partRequirements.required_for_sales_orders <= 0 &&
-            partRequirements.allocated_to_sales_orders <= 0)
-      },
-      {
-        type: 'progressbar',
-        name: 'building',
-        label: t`In Production`,
-        progress: partRequirements.building,
-        total: partRequirements.scheduled_to_build,
-        hidden:
-          fetching ||
-          (!partRequirements.building && !partRequirements.scheduled_to_build)
-      },
-      {
-        type: 'number',
-        name: 'can_build',
-        unit: part.units,
-        label: t`Can Build`,
-        hidden: !part.assembly || fetching
-      },
-      {
-        type: 'number',
-        name: 'minimum_stock',
-        unit: part.units,
-        label: t`Minimum Stock`,
-        hidden: part.minimum_stock <= 0
-      },
-      {
-        type: 'number',
-        name: 'maximum_stock',
-        unit: part.units,
-        label: t`Maximum Stock`,
-        hidden: part.maximum_stock <= 0
+        type: 'string',
+        name: 'description',
+        label: t`Especificação`,
+        icon: 'info',
+        copy: true,
+        value_formatter: () => (
+          <Text size='sm' style={{ whiteSpace: 'pre-line' }}>
+            {part.description}
+          </Text>
+        )
       }
     ];
 
@@ -674,7 +596,7 @@ export default function PartDetail() {
             </Paper>
           )}
         </Stack>
-        <DetailsTable fields={tr} item={data} />
+        <DetailsTable fields={espec} item={data} />
         <DetailsTable fields={bl} item={data} />
         <DetailsTable fields={br} item={data} />
       </ItemDetailsGrid>
@@ -948,79 +870,7 @@ export default function PartDetail() {
       return [];
     }
 
-    const allocated =
-      partRequirements.allocated_to_build_orders +
-      partRequirements.allocated_to_sales_orders;
-
-    const required =
-      partRequirements.required_for_build_orders +
-      partRequirements.required_for_sales_orders;
-
-    const shortfall = Math.max(required - partRequirements.total_stock, 0);
-
-    let stockColor = 'green';
-
-    if (partRequirements.total_stock <= part.minimum_stock) {
-      stockColor = 'orange';
-    } else if (
-      part.maximum_stock > 0 &&
-      partRequirements.total_stock > part.maximum_stock
-    ) {
-      stockColor = 'teal';
-    }
-
     return [
-      <DetailsBadge
-        label={`${t`In Stock`}: ${formatDecimal(partRequirements.total_stock)}`}
-        color={stockColor}
-        visible={!part.virtual && partRequirements.total_stock > 0}
-        key='in_stock'
-      />,
-      <DetailsBadge
-        label={`${t`Available`}: ${formatDecimal(partRequirements.unallocated_stock)}`}
-        color='yellow'
-        key='available_stock'
-        visible={
-          !part.virtual &&
-          partRequirements.unallocated_stock != partRequirements.total_stock
-        }
-      />,
-      <DetailsBadge
-        label={t`No Stock`}
-        color='orange'
-        visible={!part.virtual && partRequirements.total_stock == 0}
-        key='no_stock'
-      />,
-      <DetailsBadge
-        label={`${t`Allocated`}: ${formatDecimal(allocated)}`}
-        color='blue'
-        visible={allocated > 0}
-        key='allocated'
-      />,
-      <DetailsBadge
-        label={`${t`Required`}: ${formatDecimal(required)}`}
-        color='grape'
-        visible={required > 0}
-        key='required'
-      />,
-      <DetailsBadge
-        label={`${t`On Order`}: ${formatDecimal(partRequirements.ordering)}`}
-        color='blue'
-        visible={partRequirements.ordering > 0}
-        key='on_order'
-      />,
-      <DetailsBadge
-        label={`${t`In Production`}: ${formatDecimal(partRequirements.scheduled_to_build)}`}
-        color='blue'
-        visible={partRequirements.scheduled_to_build > 0}
-        key='in_production'
-      />,
-      <DetailsBadge
-        label={`${t`Deficit`}: ${formatDecimal(shortfall)}`}
-        color='red'
-        visible={shortfall > 0}
-        key='deficit'
-      />,
       <DetailsBadge
         label={t`Inactive`}
         color='red'
@@ -1225,7 +1075,6 @@ export default function PartDetail() {
                 </ActionIcon>
               ) : undefined
             }
-            subtitle={part.description}
             imageUrl={part.image}
             thumbnailUrl={part.thumbnail}
             badges={badges}

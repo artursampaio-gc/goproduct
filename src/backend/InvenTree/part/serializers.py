@@ -39,6 +39,7 @@ from users.serializers import UserSerializer
 from .models import (
     BomItem,
     BomItemSubstitute,
+    Cor,
     Part,
     PartCategory,
     PartCategoryParameterTemplate,
@@ -52,6 +53,45 @@ from .models import (
 )
 
 logger = structlog.get_logger('inventree')
+
+
+class CorSerializer(InvenTree.serializers.InvenTreeModelSerializer):
+    """Serializer para o modelo Cor."""
+
+    class Meta:
+        """Metaclass options."""
+
+        model = Cor
+        fields = [
+            'pk',
+            'nome_pt',
+            'nome_en',
+            'pantone',
+            'hex_code',
+            'textura',
+            'textura_url',
+        ]
+
+    textura_url = serializers.SerializerMethodField(read_only=True)
+
+    def get_textura_url(self, obj) -> str | None:
+        """Return the full URL for the texture image, if available."""
+        if obj.textura:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.textura.url)
+            return obj.textura.url
+        return None
+
+    def validate(self, data):
+        """Validate that at least one of hex_code or textura is provided."""
+        hex_code = data.get('hex_code') or (self.instance.hex_code if self.instance else None)
+        textura = data.get('textura') or (self.instance.textura if self.instance else None)
+        if not hex_code and not textura:
+            raise serializers.ValidationError(
+                _('Preencha o Código Hex ou faça upload de uma Textura (ou ambos).')
+            )
+        return data
 
 
 class CategoryDeleteSerializer(serializers.Serializer):
@@ -625,6 +665,7 @@ class PartSerializer(
             'material_forro',
             'peso',
             'cor',
+            'cor_detail',
             'fob',
             'codigo_barras',
             'notes',
@@ -818,6 +859,18 @@ class PartSerializer(
             'allow_null': True,
         },
         prefetch_fields=['category'],
+    )
+
+    # Extra detail for the color
+    cor_detail = OptionalField(
+        serializer_class=CorSerializer,
+        serializer_kwargs={
+            'source': 'cor',
+            'many': False,
+            'read_only': True,
+            'allow_null': True,
+        },
+        prefetch_fields=['cor'],
     )
 
     category_path = OptionalField(
