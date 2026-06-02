@@ -344,14 +344,16 @@ export default function PartDetail() {
         name: 'peso',
         label: t`Peso`,
         copy: true,
-        hidden: !part.peso
+        hidden: !part.peso,
+        value_formatter: () => `${part.peso} g`
       },
       {
         type: 'string',
         name: 'fob',
         label: t`FOB (US$)`,
         copy: true,
-        hidden: !part.fob
+        hidden: !part.fob,
+        value_formatter: () => `$ ${part.fob}`
       },
       {
         type: 'string',

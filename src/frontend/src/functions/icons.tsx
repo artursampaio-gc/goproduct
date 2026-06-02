@@ -110,9 +110,12 @@ import {
   IconWorld,
   IconWorldCode,
   IconX,
+  IconAnchor,
   IconBarcode,
+  IconBuildingBank,
   IconLanguage,
   IconPalette,
+  IconReceiptDollar,
   IconShirt,
   IconWeight
 } from '@tabler/icons-react';
@@ -221,6 +224,11 @@ const icons: InvenTreeIconType = {
   cor: IconPalette,
   fob: IconCurrencyDollar,
   codigo_barras: IconBarcode,
+
+  // GoGroup custom company/supplier fields
+  anchor: IconAnchor,
+  bank: IconBuildingBank,
+  receipt: IconReceiptDollar,
 
   calendar: IconCalendar,
   calendar_target: IconCalendarDot,

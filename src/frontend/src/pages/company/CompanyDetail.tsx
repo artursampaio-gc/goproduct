@@ -92,7 +92,16 @@ export default function CompanyDetail(props: Readonly<CompanyDetailProps>) {
         type: 'text',
         name: 'description',
         label: t`Description`,
-        copy: true
+        copy: true,
+        hidden: !company.description
+      },
+      {
+        type: 'text',
+        name: 'razao_social',
+        label: 'Razão Social',
+        icon: 'user',
+        copy: true,
+        hidden: !company.razao_social
       },
       {
         type: 'link',
@@ -104,17 +113,82 @@ export default function CompanyDetail(props: Readonly<CompanyDetailProps>) {
       },
       {
         type: 'text',
+        name: 'contato_nome',
+        label: 'Contato',
+        icon: 'user',
+        copy: true,
+        hidden: !company.contato_nome
+      },
+      {
+        type: 'text',
         name: 'phone',
-        label: t`Phone Number`,
+        label: 'Telefone',
+        icon: 'phone',
         copy: true,
         hidden: !company.phone
       },
       {
         type: 'text',
         name: 'email',
-        label: t`Email Address`,
+        label: 'E-mail',
+        icon: 'email',
         copy: true,
         hidden: !company.email
+      },
+      {
+        type: 'text',
+        name: 'endereco',
+        label: 'Endereço',
+        icon: 'location',
+        copy: true,
+        hidden: !company.endereco,
+        value_formatter: () => (
+          <pre style={{ margin: 0, padding: 0, fontFamily: 'inherit', fontSize: 'inherit', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+            {company.endereco}
+          </pre>
+        )
+      },
+      {
+        type: 'text',
+        name: 'porto',
+        label: 'Porto',
+        icon: 'anchor',
+        copy: true,
+        hidden: !company.porto
+      },
+      {
+        type: 'text',
+        name: 'incoterm',
+        label: 'Incoterm',
+        icon: 'shipment',
+        copy: true,
+        hidden: !company.incoterm
+      },
+      {
+        type: 'text',
+        name: 'termo_pagamento',
+        label: 'Termo de Pagamento',
+        icon: 'receipt',
+        copy: true,
+        hidden: !company.termo_pagamento,
+        value_formatter: () => (
+          <pre style={{ margin: 0, padding: 0, fontFamily: 'inherit', fontSize: 'inherit', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+            {company.termo_pagamento}
+          </pre>
+        )
+      },
+      {
+        type: 'text',
+        name: 'dados_bancarios',
+        label: 'Dados Bancários',
+        icon: 'bank',
+        copy: true,
+        hidden: !company.dados_bancarios,
+        value_formatter: () => (
+          <pre style={{ margin: 0, padding: 0, fontFamily: 'inherit', fontSize: 'inherit', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+            {company.dados_bancarios}
+          </pre>
+        )
       },
       {
         type: 'text',

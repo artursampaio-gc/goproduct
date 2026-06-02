@@ -126,7 +126,6 @@ class CompanySerializer(
             'name',
             'description',
             'website',
-            'name',
             'phone',
             'email',
             'currency',
@@ -143,6 +142,14 @@ class CompanySerializer(
             'primary_address',
             'tax_id',
             'parameters',
+            # GoProduct custom supplier fields
+            'razao_social',
+            'contato_nome',
+            'endereco',
+            'porto',
+            'dados_bancarios',
+            'incoterm',
+            'termo_pagamento',
         ]
 
     @staticmethod

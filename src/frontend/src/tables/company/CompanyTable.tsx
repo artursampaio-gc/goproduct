@@ -70,6 +70,60 @@ export function CompanyTable({
       {
         accessor: 'website',
         sortable: false
+      },
+      {
+        accessor: 'razao_social',
+        title: 'Razão Social',
+        sortable: false,
+        switchable: true
+      },
+      {
+        accessor: 'contato_nome',
+        title: 'Contato',
+        sortable: false,
+        switchable: true
+      },
+      {
+        accessor: 'phone',
+        title: 'Telefone',
+        sortable: false,
+        switchable: true
+      },
+      {
+        accessor: 'email',
+        title: 'E-mail',
+        sortable: false,
+        switchable: true
+      },
+      {
+        accessor: 'endereco',
+        title: 'Endereço',
+        sortable: false,
+        switchable: true
+      },
+      {
+        accessor: 'porto',
+        title: 'Porto',
+        sortable: false,
+        switchable: true
+      },
+      {
+        accessor: 'incoterm',
+        title: 'Incoterm',
+        sortable: false,
+        switchable: true
+      },
+      {
+        accessor: 'termo_pagamento',
+        title: 'Termo de Pagamento',
+        sortable: false,
+        switchable: true
+      },
+      {
+        accessor: 'dados_bancarios',
+        title: 'Dados Bancários',
+        sortable: false,
+        switchable: true
       }
     ];
   }, []);

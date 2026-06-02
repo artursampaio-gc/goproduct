@@ -20,7 +20,7 @@ export function CreateOrderDocWidget(): DashboardWidgetProps {
             <StylishText size="md">Novo Pedido</StylishText>
           </Group>
           <Text size="sm" c="dimmed">
-            Gere relatórios, guias de remessa e faturas para novos pedidos de forma automatizada.
+            Gere a documentação necessária para um novo pedido: PO, Carton Marks, Barcodes, Inner Labels e HangTags automaticamente.
           </Text>
         </Stack>
         <Button variant="light" color="blue" fullWidth disabled>
@@ -48,7 +48,7 @@ export function RegisterProductWidget(): DashboardWidgetProps {
             <StylishText size="md">Cadastrar Produto</StylishText>
           </Group>
           <Text size="sm" c="dimmed">
-            Adicione uma nova parte, defina sua categoria, parâmetros técnicos e controle de estoque inicial.
+            Adicione um novo produto, defina sua categoria, subcategoria e modelo, parâmetros técnicos e outras informações.
           </Text>
         </Stack>
         <Button variant="light" color="teal" fullWidth disabled>
