@@ -4,6 +4,7 @@ import { ModelType } from '@lib/enums/ModelType';
 import { useGlobalSettingsState } from '../../states/SettingsStates';
 import { useUserState } from '../../states/UserState';
 import type { DashboardWidgetProps } from './DashboardWidget';
+import AiChatDashboardWidget from './widgets/AiChatDashboardWidget';
 import ColorToggleDashboardWidget from './widgets/ColorToggleWidget';
 import GetStartedWidget from './widgets/GetStartedWidget';
 import LanguageSelectDashboardWidget from './widgets/LanguageSelectWidget';
@@ -237,6 +238,11 @@ function BuiltinActionWidgets(): DashboardWidgetProps[] {
   return [StocktakeDashboardWidget(), CreateOrderDocWidget(), RegisterProductWidget()];
 }
 
+// AI Chat widget — remove: delete AiChatDashboardWidget.tsx + this function + its call below
+function BuiltinAiChatWidgets(): DashboardWidgetProps[] {
+  return [AiChatDashboardWidget()];
+}
+
 /**
  *
  * @returns A list of built-in dashboard widgets
@@ -246,6 +252,7 @@ export default function DashboardWidgetLibrary(): DashboardWidgetProps[] {
     ...BuiltinQueryCountWidgets(),
     ...BuiltinGettingStartedWidgets(),
     ...BuiltinSettingsWidgets(),
-    ...BuiltinActionWidgets()
+    ...BuiltinActionWidgets(),
+    ...BuiltinAiChatWidgets()
   ];
 }

@@ -65,7 +65,8 @@ export function getNavTabs(user: UserStateProps): NavTab[] {
     {
       name: 'cores',
       title: t`Cores`,
-      icon: <IconPalette />
+      icon: <IconPalette />,
+      role: UserRoles.part
     }
   ];
 
