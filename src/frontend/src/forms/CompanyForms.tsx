@@ -4,13 +4,17 @@ import type {
 } from '@lib/types/Forms';
 import {
   IconAt,
+  IconAnchor,
+  IconBuildingBank,
   IconCurrencyDollar,
   IconGlobe,
   IconHash,
   IconLink,
+  IconMapPin,
   IconNote,
   IconPackage,
-  IconPhone
+  IconPhone,
+  IconUser
 } from '@tabler/icons-react';
 import { useMemo, useState } from 'react';
 
@@ -130,20 +134,71 @@ export function useManufacturerPartFields() {
 export function companyFields(): ApiFormFieldSet {
   return {
     name: {},
-    description: {},
+    razao_social: {
+      label: 'Razão Social',
+      icon: <IconUser />
+    },
+    contato_nome: {
+      label: 'Contato',
+      required: true,
+      icon: <IconUser />
+    },
+    email: {
+      required: true,
+      icon: <IconAt />
+    },
     website: {
-      icon: <IconGlobe />
+      icon: <IconGlobe />,
+      hidden: true
+    },
+    incoterm: {
+      label: 'Incoterm',
+      required: true,
+      choices: [
+        { value: 'EXW', display_name: 'EXW' },
+        { value: 'FOB', display_name: 'FOB' },
+        { value: 'FCA', display_name: 'FCA' },
+        { value: 'CPT', display_name: 'CPT' },
+        { value: 'CIP', display_name: 'CIP' },
+        { value: 'DAP', display_name: 'DAP' },
+        { value: 'DPU', display_name: 'DPU' },
+        { value: 'DDP', display_name: 'DDP' },
+        { value: 'FAS', display_name: 'FAS' },
+        { value: 'CFR', display_name: 'CFR' },
+        { value: 'CIF', display_name: 'CIF' }
+      ]
     },
     currency: {
       icon: <IconCurrencyDollar />
     },
     phone: {
+      label: 'Telefone',
       icon: <IconPhone />
     },
-    email: {
-      icon: <IconAt />
+    tax_id: { hidden: true },
+    endereco: {
+      label: 'Endereço',
+      required: true,
+      multiline: true,
+      icon: <IconMapPin />
     },
-    tax_id: {},
+    porto: {
+      label: 'Porto',
+      required: true,
+      icon: <IconAnchor />
+    },
+    dados_bancarios: {
+      label: 'Dados Bancários',
+      required: true,
+      multiline: true,
+      icon: <IconBuildingBank />
+    },
+    termo_pagamento: {
+      label: 'Termo de Pagamento',
+      required: true,
+      multiline: true,
+      icon: <IconCurrencyDollar />
+    },
     is_supplier: {},
     is_manufacturer: {},
     is_customer: {},

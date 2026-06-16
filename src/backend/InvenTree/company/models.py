@@ -228,6 +228,88 @@ class Company(
         help_text=_('Company Tax ID'),
     )
 
+    # --- GoProduct custom supplier fields ---
+
+    razao_social = models.CharField(
+        max_length=500,
+        blank=True,
+        default='',
+        verbose_name=_('Razão Social'),
+        help_text=_('Razão social da empresa'),
+    )
+
+    contato_nome = models.CharField(
+        max_length=200,
+        blank=True,
+        default='',
+        verbose_name=_('Contato'),
+        help_text=_('Nome do contato principal'),
+    )
+
+    INCOTERM_CHOICES = [
+        ('EXW', 'EXW'),
+        ('FOB', 'FOB'),
+        ('FCA', 'FCA'),
+        ('CPT', 'CPT'),
+        ('CIP', 'CIP'),
+        ('DAP', 'DAP'),
+        ('DPU', 'DPU'),
+        ('DDP', 'DDP'),
+        ('FAS', 'FAS'),
+        ('CFR', 'CFR'),
+        ('CIF', 'CIF'),
+    ]
+
+    endereco = models.TextField(
+        blank=True,
+        default='',
+        verbose_name=_('Endereço'),
+        help_text=_('Endereço do fornecedor'),
+    )
+
+    porto = models.CharField(
+        max_length=200,
+        blank=True,
+        default='',
+        verbose_name=_('Porto'),
+        help_text=_('Porto de embarque'),
+    )
+
+    dados_bancarios = models.TextField(
+        blank=True,
+        default='',
+        verbose_name=_('Dados Bancários'),
+        help_text=_('Dados bancários do fornecedor'),
+    )
+
+    incoterm = models.CharField(
+        max_length=10,
+        blank=True,
+        default='',
+        choices=[
+            ('EXW', 'EXW'),
+            ('FOB', 'FOB'),
+            ('FCA', 'FCA'),
+            ('CPT', 'CPT'),
+            ('CIP', 'CIP'),
+            ('DAP', 'DAP'),
+            ('DPU', 'DPU'),
+            ('DDP', 'DDP'),
+            ('FAS', 'FAS'),
+            ('CFR', 'CFR'),
+            ('CIF', 'CIF'),
+        ],
+        verbose_name=_('Incoterm'),
+        help_text=_('Termos de entrega internacional (Incoterms)'),
+    )
+
+    termo_pagamento = models.TextField(
+        blank=True,
+        default='',
+        verbose_name=_('Termo de Pagamento'),
+        help_text=_('Condições de pagamento do fornecedor'),
+    )
+
     @property
     def address(self):
         """Return the string representation for the primary address.

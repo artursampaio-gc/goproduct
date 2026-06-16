@@ -387,6 +387,79 @@ class PartCategory(
             PartCategoryStar.objects.filter(category=self, user=user).delete()
 
 
+def rename_cor_textura(instance, filename):
+    """Rename uploaded texture image for a Cor instance."""
+    return f'cor/texturas/cor_{instance.pk}_{filename}'
+
+
+class Cor(InvenTree.models.InvenTreeMetadataModel):
+    """Modelo que representa uma Cor cadastrada no sistema GoProduct.
+
+    Regra: pelo menos um dos campos 'hex_code' ou 'textura' deve ser preenchido.
+    """
+
+    class Meta:
+        """Metaclass para o modelo Cor."""
+
+        verbose_name = _('Cor')
+        verbose_name_plural = _('Cores')
+        ordering = ['nome_pt']
+
+    @staticmethod
+    def get_api_url():
+        """URL da API para a lista de Cores."""
+        from django.urls import reverse
+        return reverse('api-cor-list')
+
+    nome_pt = models.CharField(
+        max_length=100,
+        verbose_name=_('Nome (Português)'),
+        help_text=_('Nome da cor em português'),
+    )
+
+    nome_en = models.CharField(
+        max_length=100,
+        verbose_name=_('Name (English)'),
+        help_text=_('Colour name in English'),
+    )
+
+    pantone = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        verbose_name=_('Pantone'),
+        help_text=_('Código Pantone (opcional)'),
+    )
+
+    hex_code = models.CharField(
+        max_length=7,
+        blank=True,
+        null=True,
+        verbose_name=_('Código Hex'),
+        help_text=_('Código hexadecimal da cor, ex.: #FF5733'),
+    )
+
+    textura = models.ImageField(
+        upload_to='cor/texturas/',
+        blank=True,
+        null=True,
+        verbose_name=_('Textura'),
+        help_text=_('Imagem de textura representando a cor (opcional)'),
+    )
+
+    def clean(self):
+        """Valida que ao menos hex_code ou textura está preenchido."""
+        super().clean()
+        if not self.hex_code and not self.textura:
+            raise ValidationError(
+                _('Preencha o Código Hex ou faça o upload de uma Textura (ou ambos).')
+            )
+
+    def __str__(self):
+        """Representação textual da Cor."""
+        return self.nome_pt
+
+
 def rename_part_image(instance, filename):
     """Function for renaming a part image file.
 
@@ -1290,17 +1363,12 @@ class Part(
         help_text=_('Peso do produto'),
     )
 
-    COR_CHOICES = [
-        ('preto', _('Preto')),
-        ('azul', _('Azul')),
-        ('rosa', _('Rosa')),
-    ]
-
-    cor = models.CharField(
-        max_length=20,
-        choices=COR_CHOICES,
+    cor = models.ForeignKey(
+        'part.Cor',
+        on_delete=models.SET_NULL,
+        null=True,
         blank=True,
-        default='',
+        related_name='parts',
         verbose_name=_('Cor'),
         help_text=_('Cor do produto'),
     )

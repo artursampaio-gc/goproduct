@@ -72,8 +72,14 @@ export default function TextField({
       }
     },
     onKeyDown: (event: any) => {
-      if (event.code === 'Enter' && !definition.multiline) {
-        // Bypass debounce on enter key (single-line only)
+      if (event.code === 'Enter') {
+        if (definition.multiline) {
+          // In multiline mode, Enter adds a newline — do NOT propagate to the
+          // form's submit-on-Enter handler, otherwise the form would submit
+          // instead of inserting the line break.
+          return;
+        }
+        // Single-line: bypass debounce so the form submits immediately on Enter
         onTextChange(event.currentTarget.value);
       }
       onKeyDown(event.code);

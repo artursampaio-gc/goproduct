@@ -117,6 +117,7 @@ def get_ruleset_models() -> dict:
         ],
         RuleSetEnum.PART: [
             'part_part',
+            'part_cor',
             'part_partpricing',
             'part_partsellpricebreak',
             'part_partinternalpricebreak',

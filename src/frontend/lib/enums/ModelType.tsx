@@ -38,6 +38,7 @@ export enum ModelType {
   contenttype = 'contenttype',
   selectionlist = 'selectionlist',
   selectionentry = 'selectionentry',
+  cor = 'cor',
   error = 'error'
 }
 

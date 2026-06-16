@@ -55,6 +55,7 @@ import {
   RenderTransferOrder,
   RenderTransferOrderLineItem
 } from './Order';
+import { RenderCor } from './Cor';
 import { RenderPart, RenderPartCategory, RenderPartTestTemplate } from './Part';
 import { RenderPlugin } from './Plugin';
 import { RenderLabelTemplate, RenderReportTemplate } from './Report';
@@ -81,6 +82,7 @@ export const RendererLookup: ModelRendererDict = {
   [ModelType.owner]: RenderOwner,
   [ModelType.part]: RenderPart,
   [ModelType.partcategory]: RenderPartCategory,
+  [ModelType.cor]: RenderCor,
   [ModelType.parttesttemplate]: RenderPartTestTemplate,
   [ModelType.projectcode]: RenderProjectCode,
   [ModelType.purchaseorder]: RenderPurchaseOrder,

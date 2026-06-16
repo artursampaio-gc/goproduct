@@ -84,6 +84,14 @@ export const ModelInformationDict: ModelDict = {
     admin_url: '/part/partcategory/',
     icon: 'category'
   },
+  cor: {
+    label: () => t`Cor`,
+    label_multiple: () => t`Cores`,
+    url_overview: '/cores',
+    url_detail: '/cores/:pk/',
+    api_endpoint: ApiEndpoints.cor_list,
+    icon: 'photo'
+  },
   stockitem: {
     label: () => t`Stock Item`,
     label_multiple: () => t`Stock Items`,

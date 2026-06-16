@@ -53,33 +53,70 @@ import { PartTableFilters } from './PartTableFilters';
  */
 function partTableColumns(): TableColumn[] {
   return [
+    // 1. Nome - Português (always visible; doubles as the "click to open" cell)
     PartColumn({
       part: '',
-      accessor: 'name'
+      accessor: 'name',
+      title: 'Nome - Português'
     }),
+    // 2. Nome - Inglês
+    {
+      accessor: 'name_en',
+      title: 'Nome - Inglês',
+      sortable: true,
+      switchable: true,
+      copyable: true
+    },
+    // 3. SKU (the underlying field is still "IPN" in InvenTree)
     IPNColumn({
-      accessor: 'IPN'
+      accessor: 'IPN',
+      title: 'SKU'
     }),
+    // 4. Cor — pulled from cor_detail (enabled via cor_detail=true on the request)
+    {
+      accessor: 'cor_detail.nome_pt',
+      title: 'Cor',
+      sortable: false,
+      switchable: true,
+      copyable: true,
+      render: (record: any) => record?.cor_detail?.nome_pt ?? ''
+    },
+    // 5. FOB — formatted with "$" prefix
+    {
+      accessor: 'fob',
+      title: 'FOB',
+      sortable: true,
+      switchable: true,
+      copyable: true,
+      render: (record: any) => (record?.fob ? `$ ${record.fob}` : '')
+    },
+    // The original columns below are kept for backward compatibility but
+    // hidden by default — they still show up in the column picker so the
+    // user can toggle them on.
     {
       accessor: 'revision',
-      sortable: true
+      sortable: true,
+      defaultVisible: false
     },
     {
       accessor: 'units',
       sortable: true,
-      copyable: true
+      copyable: true,
+      defaultVisible: false
     },
-    DescriptionColumn({}),
+    DescriptionColumn({ defaultVisible: false }),
+    // 6. Categoria
     CategoryColumn({
       accessor: 'category_detail'
     }),
     DefaultLocationColumn({
-      accessor: 'default_location_detail'
+      accessor: 'default_location_detail',
+      defaultVisible: false
     }),
     {
       accessor: 'total_in_stock',
       sortable: true,
-
+      defaultVisible: false,
       render: (record) => {
         if (record.virtual) {
           return (
@@ -201,7 +238,8 @@ function partTableColumns(): TableColumn[] {
       render: (record: any) =>
         formatPriceRange(record.pricing_min, record.pricing_max)
     },
-    LinkColumn({})
+    // 7. Link (always shown by default)
+    LinkColumn({ defaultVisible: true })
   ];
 }
 
@@ -470,7 +508,8 @@ export function PartListTable({
           params: {
             ...props?.params,
             category_detail: true,
-            location_detail: true
+            location_detail: true,
+            cor_detail: true
           }
         }}
       />

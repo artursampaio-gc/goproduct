@@ -32,6 +32,7 @@ from plugin.urls import get_plugin_urls
 from web.urls import cui_compatibility_urls
 from web.urls import urlpatterns as platform_urls
 
+from .ai_chat_api import ai_chat_api_urls
 from .api import (
     APISearchView,
     InfoView,
@@ -81,6 +82,8 @@ apipatterns = [
         ]),
     ),
     path('user/', include(users.api.user_urls)),
+    # AI Chat assistant (remove: delete ai_chat_api.py + this line)
+    path('ai-chat/', include(ai_chat_api_urls)),
     # Plugin endpoints
     path('', include(plugin.api.plugin_api_urls)),
     # Common endpoints endpoint

@@ -68,6 +68,14 @@ export const PurchasingIndex = Loadable(
   lazy(() => import('./pages/purchasing/PurchasingIndex'))
 );
 
+export const ColorsIndex = Loadable(
+  lazy(() => import('./pages/colors/ColorsIndex'))
+);
+
+export const ColorDetail = Loadable(
+  lazy(() => import('./pages/colors/ColorDetail'))
+);
+
 export const PurchaseOrderDetail = Loadable(
   lazy(() => import('./pages/purchasing/PurchaseOrderDetail'))
 );
@@ -191,6 +199,10 @@ export const routes = (
           path='manufacturer-part/:id/*'
           element={<ManufacturerPartDetail />}
         />
+      </Route>
+      <Route path='cores/'>
+        <Route index element={<ColorsIndex />} />
+        <Route path=':id/*' element={<ColorDetail />} />
       </Route>
       <Route path='company/:id/*' element={<CompanyDetail />} />
       <Route path='sales/'>

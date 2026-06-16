@@ -43,6 +43,11 @@ class CompanyMixin(OutputOptionsMixin):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
 
+    # GoProduct custom fields that must preserve line breaks.
+    # CleanMixin.clean_string would otherwise strip newlines from any field
+    # that is not an InvenTreeNotesField (markdown), losing user line breaks.
+    SAFE_FIELDS = ['endereco', 'dados_bancarios', 'termo_pagamento']
+
     def get_queryset(self):
         """Return annotated queryset for the company endpoints."""
         queryset = super().get_queryset()
